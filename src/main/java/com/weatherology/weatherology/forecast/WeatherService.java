@@ -5,12 +5,14 @@ import java.util.ArrayList;
 public class WeatherService {
 	private ArrayList<WeatherProviderAdapter> weatherProviders;
 	
-	public WeatherService() {}
+	public WeatherService() {
+		this.weatherProviders = new ArrayList<WeatherProviderAdapter>();
+	}
 	
 	public Weather createNewWeather(String zip) {
-		System.out.println(zip);
-		Weather weather = new Weather(Integer.getInteger(zip));
-		
+		Weather weather = new Weather(Integer.parseInt(zip));
+
+
 		this.weatherProviders.add(new OpenWeatherMapAdapter(new OpenWeatherMap(weather.getZip())));
 		//add second weather provider
 		//add third weather provider

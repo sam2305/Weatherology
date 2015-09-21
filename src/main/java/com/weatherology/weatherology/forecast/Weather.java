@@ -12,6 +12,7 @@ public class Weather {
 	
 	public Weather(int zip) {
 		this.zip = zip;
+		this.forecasts = new ArrayList<Forecast>();
 	}	
 
 	public int getZip() {

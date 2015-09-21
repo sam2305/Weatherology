@@ -19,10 +19,7 @@ public class WeatherResource {
 	}
 	
 	private void setupEndpoints() {
-		get(API_CONTEXT + "/weather", "application/json", (request, response)
-				-> {weatherService.createNewWeather(request.body());
-				response.status(201);
-				return response;
-				}, new JsonTransformer());
+		get(API_CONTEXT + "/weather/:zip", "application/json", (request, response)
+				-> weatherService.createNewWeather(request.params(":zip")), new JsonTransformer());
 	}
 }

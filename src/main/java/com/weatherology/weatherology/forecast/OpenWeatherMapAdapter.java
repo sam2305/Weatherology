@@ -9,7 +9,7 @@ public class OpenWeatherMapAdapter extends WeatherProviderAdapter {
 	}
 	
 	public String getName() {
-		return this.name;
+		return OpenWeatherMapAdapter.name;
 	}
 	
 	public String getForecast() {
