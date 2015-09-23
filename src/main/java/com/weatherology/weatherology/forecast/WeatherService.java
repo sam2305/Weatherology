@@ -6,12 +6,12 @@ public class WeatherService {
 	private ArrayList<WeatherProviderAdapter> weatherProviders;
 	
 	public WeatherService() {
-		this.weatherProviders = new ArrayList<WeatherProviderAdapter>();
+		
 	}
 	
 	public Weather createNewWeather(String zip) {
 		Weather weather = new Weather(Integer.parseInt(zip));
-
+		this.weatherProviders = new ArrayList<WeatherProviderAdapter>();
 
 		this.weatherProviders.add(new OpenWeatherMapAdapter(new OpenWeatherMap(weather.getZip())));
 		//add second weather provider
