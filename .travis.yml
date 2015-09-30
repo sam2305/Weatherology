@@ -8,4 +8,6 @@ before_script:
 
 after_success:
   - codecov
-  
+
+notifications:
+  slack: weatherology:XQfkorT0IB9OsdfLPrJBE6R6
