@@ -1,11 +1,11 @@
 package com.weatherology.services.weather;
 
 public class WeatherUndergroundAdapter extends WeatherProviderAdapter {
-	private final static String name = "WunderGround";
-	private WeatherUnderground wunderGround;
+	private final static String name = "WeatherUnderground";
+	private WeatherUnderground weatherUnderground;
 	
 	public WeatherUndergroundAdapter(WeatherUnderground wunderGround) {
-		this.wunderGround = wunderGround;
+		this.weatherUnderground = weatherUnderground;
 	}
 	
 	public String getName() {
@@ -14,16 +14,16 @@ public class WeatherUndergroundAdapter extends WeatherProviderAdapter {
 	
 	@Override
 	public double getHumidity() {
-		return this.wunderGround.getHumidity();
+		return this.weatherUnderground.getHumidity();
 	}
 
 	@Override
 	double getTemperatureFahrenheit() {
-		return 0;
+		return this.weatherUnderground.getTemperatureFahrenheit();
 	}
 
 	@Override
 	double getTemperatureCelsius() {
-		return 0;
+		return this.weatherUnderground.getTemperatureCelsius();
 	}
 }
