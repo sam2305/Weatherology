@@ -1,12 +1,13 @@
-package com.weatherology.weatherology.forecast;
+package com.weatherology.resources;
 
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import com.weatherology.weatherology.JsonTransformer;
-
 import static spark.Spark.get;
+
+import com.weatherology.helpers.JsonTransformer;
+import com.weatherology.services.weather.WeatherService;
 
 public class WeatherResource {
 	private static final String API_CONTEXT = "/api/v1";

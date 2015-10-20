@@ -1,7 +1,8 @@
-package com.weatherology.weatherology;
+package com.weatherology.services.users;
 
 import com.google.gson.Gson;
 import com.mongodb.*;
+
 import org.bson.types.ObjectId;
 
 import java.util.Date;

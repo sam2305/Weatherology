@@ -1,6 +1,9 @@
-package com.weatherology.weatherology;
+package com.weatherology.resources;
 
 import com.google.gson.Gson;
+import com.weatherology.helpers.JsonTransformer;
+import com.weatherology.services.users.UserService;
+
 import spark.Request;
 import spark.Response;
 import spark.Route;

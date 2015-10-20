@@ -1,8 +1,8 @@
-package com.weatherology.weatherology.forecast;
-
-import com.weatherology.weatherology.Icon;
+package com.weatherology.services.weather;
 
 import java.util.ArrayList;
+
+import com.weatherology.helpers.Icon;
 
 public class Weather {
 

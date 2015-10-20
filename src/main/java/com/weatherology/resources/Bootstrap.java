@@ -1,4 +1,4 @@
-package com.weatherology.weatherology;
+package com.weatherology.resources;
 
 import com.mongodb.*;
 
@@ -6,9 +6,7 @@ import static spark.Spark.setIpAddress;
 import static spark.Spark.setPort;
 import static spark.SparkBase.staticFileLocation;
 
-import static spark.Spark.*;
-
-import com.weatherology.weatherology.forecast.*;
+import com.weatherology.services.ServiceFacade;
 
 public class Bootstrap {
 
@@ -19,8 +17,9 @@ public class Bootstrap {
 		setIpAddress(IP_ADDRESS);
 		setPort(PORT);
 		staticFileLocation("/public");
-		new WeatherResource(new WeatherService());
-		//new UserResource(new UserService(mongo()));
+		
+		new WeatherResource(new ServiceFacade().createWeatherService());
+		new UserResource(new ServiceFacade().createUserService(mongo()));
 	}
 	
 	private static DB mongo() throws Exception {

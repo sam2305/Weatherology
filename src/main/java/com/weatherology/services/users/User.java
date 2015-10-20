@@ -1,4 +1,4 @@
-package com.weatherology.weatherology;
+package com.weatherology.services.users;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;

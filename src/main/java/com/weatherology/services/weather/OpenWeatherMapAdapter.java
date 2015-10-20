@@ -1,4 +1,4 @@
-package com.weatherology.weatherology.forecast;
+package com.weatherology.services.weather;
 
 public class OpenWeatherMapAdapter extends WeatherProviderAdapter {
 	private final static String name = "OpenWeatherMap";
@@ -12,14 +12,17 @@ public class OpenWeatherMapAdapter extends WeatherProviderAdapter {
 		return OpenWeatherMapAdapter.name;
 	}
 	
-	public String getForecast() {
-		return this.openWeatherMap.forecast();
+	@Override
+	public double getTemperatureFahrenheit() {
+		return this.openWeatherMap.getTemperatureFahrenheit();
 	}
 	
-	public double getTemperature() {
-		return this.openWeatherMap.getTemperature();
+	@Override
+	public double getTemperatureCelsius() {
+		return this.openWeatherMap.getTemperatureCelsius();
 	}
 	
+	@Override
 	public double getHumidity() {
 		return this.openWeatherMap.getHumidity();
 	}

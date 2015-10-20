@@ -1,4 +1,4 @@
-package com.weatherology.weatherology;
+package com.weatherology.helpers;
 
 import com.google.gson.Gson;
 import spark.Response;

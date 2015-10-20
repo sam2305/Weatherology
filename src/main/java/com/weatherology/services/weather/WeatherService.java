@@ -1,4 +1,4 @@
-package com.weatherology.weatherology.forecast;
+package com.weatherology.services.weather;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class WeatherService {
 		
 		for(WeatherProviderAdapter provider: this.weatherProviders) {
 			String name = provider.getName();
-			double temperature = provider.getTemperature();
+			double temperature = provider.getTemperatureFahrenheit();
 			double humidity = provider.getHumidity();
 			
 			weather.addForecast(new Forecast(name, temperature, humidity));
