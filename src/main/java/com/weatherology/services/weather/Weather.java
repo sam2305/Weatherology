@@ -7,7 +7,6 @@ import com.weatherology.helpers.Icon;
 public class Weather {
 
 	private int zip;
-	private Icon icon;
 	private ArrayList<Forecast> forecasts;
 	
 	public Weather(int zip) {
@@ -23,8 +22,7 @@ public class Weather {
 		this.forecasts.add(forecast);
 	}
 	
-	public void setIcon(String condition) {
-		// Come up with logic for transforming condition into icon
-		this.icon = Icon.CLEAR_DAY;
+	public ArrayList<Forecast> getForecasts() {
+		return this.forecasts;
 	}
 }

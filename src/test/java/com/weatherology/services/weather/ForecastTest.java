@@ -1,4 +1,4 @@
-package com.weatherology.weatherology.forecast;
+package com.weatherology.services.weather;
 
 import static org.junit.Assert.*;
 

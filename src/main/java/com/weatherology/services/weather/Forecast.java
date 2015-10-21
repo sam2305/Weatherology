@@ -34,4 +34,16 @@ public class Forecast {
 	public void setHumidity(double humidity) {
 		this.humidity = humidity;
 	}
+	
+	public boolean equals(Forecast forecast) {
+		if (this.name.equals(forecast.name)) {
+			if (this.temperature == forecast.temperature) {
+				if (this.humidity == forecast.humidity) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
 }
