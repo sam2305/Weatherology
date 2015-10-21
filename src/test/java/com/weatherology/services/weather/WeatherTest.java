@@ -38,9 +38,7 @@ public class WeatherTest {
 		this.weather.addForecast(new Forecast("WeatherProvider", 273.15, 90.0));
 		ArrayList<Forecast> actual = this.weather.getForecasts();
 
-		for (int i = 0; i < expected.size() && i < actual.size(); i++) {
-			assertTrue(expected.get(i).equals(actual.get(i)));
-		}
+        assertEquals(expected, actual);
 	}
 	
 	@Test

@@ -35,15 +35,16 @@ public class Forecast {
 		this.humidity = humidity;
 	}
 	
-	public boolean equals(Forecast forecast) {
-		if (this.name.equals(forecast.name)) {
-			if (this.temperature == forecast.temperature) {
-				if (this.humidity == forecast.humidity) {
-					return true;
-				}
-			}
-		}
-		
+	public boolean equals(Object obj) {
+        if (! (obj instanceof Forecast))
+            return false;
+
+        Forecast forecast = (Forecast) obj;
+        if (this.name.equals(forecast.name) &&
+            this.temperature == forecast.temperature &&
+            this.humidity == forecast.humidity)
+            return true;
+
 		return false;
 	}
 }

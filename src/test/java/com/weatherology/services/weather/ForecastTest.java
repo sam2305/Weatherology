@@ -23,35 +23,105 @@ public class ForecastTest {
 
 	@Test
 	public void testGetName() {
-		assertEquals(forecast.getName(), "WeatherProvider");
+        String expected = "WeatherProvider";
+        String actual = this.forecast.getName();
+
+		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testGetTemperature() {
-		assertEquals(forecast.getTemperature(), 273.15, 0.01);
+        double expected = 273.15;
+        double actual = this.forecast.getTemperature();
+
+		assertEquals(expected, actual, 0.01);
 	}
 
 	@Test
 	public void testGetHumidity() {
-		assertEquals(forecast.getHumidity(), 90.0, 0.01);
+        double expected = 90.0;
+        double actual = this.forecast.getHumidity();
+
+		assertEquals(expected, actual, 0.01);
 	}
 	
 	@Test
 	public void testSetName() {
+        String expected = "TestName";
+
 		forecast.setName("TestName");
-		assertEquals(forecast.getName(), "TestName");
+        String actual = this.forecast.getName();
+
+		assertEquals(expected, actual);
 	}
 	
 	@Test
 	public void testSetTemperature() {
+        double expected = 270.0;
+
 		forecast.setTemperature(270.0);
-		assertEquals(forecast.getTemperature(), 270.0, 0.01);
+        double actual = this.forecast.getTemperature();
+
+		assertEquals(expected, actual, 0.01);
 	}
 	
 	@Test
 	public void testSetHumidity() {
+        double expected = 95.0;
+
 		forecast.setHumidity(95.0);
-		assertEquals(forecast.getHumidity(), 95.0, 0.01);
+        double actual = this.forecast.getHumidity();
+
+		assertEquals(expected, actual, 0.01);
 	}
-	
+
+    @Test
+    public void testEqualsIsTrue() {
+        boolean expected = true;
+
+        Forecast temp = new Forecast("WeatherProvider", 273.15, 90.0);
+        boolean actual = this.forecast.equals(temp);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testEqualsIsFalseObject() {
+        boolean expected = false;
+
+        String temp = "WeatherProvider";
+        boolean actual = this.forecast.equals(temp);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testEqualsIsFalseName() {
+        boolean expected = false;
+
+        Forecast temp = new Forecast("ProviderWeather", 273.15, 90.0);
+        boolean actual = this.forecast.equals(temp);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testEqualsIsFalseTemperature() {
+        boolean expected = false;
+
+        Forecast temp = new Forecast("WeatherProvider", 272.15, 90.0);
+        boolean actual = this.forecast.equals(temp);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testEqualsIsFalseHumidity() {
+        boolean expected = false;
+
+        Forecast temp = new Forecast("WeatherProvider", 273.15, 91.0);
+        boolean actual = this.forecast.equals(temp);
+
+        assertEquals(expected, actual);
+    }
 }

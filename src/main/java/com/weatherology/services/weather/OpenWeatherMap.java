@@ -20,9 +20,9 @@ public class OpenWeatherMap {
 	private static final String API_KEY = "&APPID=e318f5b8fe8a644524f903407e54141a";
 	private static final String URI = "http://api.openweathermap.org/data/2.5/forecast?zip=";
 	private int zip;
-	private double temperature;
-	private double humidity;
-	private double icon;
+	protected double temperature;
+	protected double humidity;
+	protected double icon;
 
 	public OpenWeatherMap(int zip) {
 		this.zip = zip;
@@ -62,7 +62,7 @@ public class OpenWeatherMap {
     }
 
     public double getTemperatureFahrenheit() {
-        return (this.temperature * (9/5) - 459.67);
+        return ((this.temperature * (9.0/5.0)) - 459.67);
     }
 
     public double getTemperatureCelsius() {
@@ -73,7 +73,7 @@ public class OpenWeatherMap {
 		return this.humidity;
 	}
 
-	private static String readUrl(String urlString) throws Exception {
+	protected static String readUrl(String urlString) throws Exception {
         URL obj = new URL(urlString);
         HttpURLConnection httpConn = (HttpURLConnection) obj.openConnection();
 
