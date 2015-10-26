@@ -2,11 +2,24 @@ package com.weatherology.services.weather;
 
 import java.util.ArrayList;
 
+/** 
+ * @author Musa V. Ahmed
+ */
 public class WeatherService {
+	/**
+	 * 
+	 */
 	private ArrayList<WeatherProviderAdapter> weatherProviders;
 	
+	/**
+	 * 
+	 */
 	public WeatherService() {}
 	
+	/**
+	 * @param zip
+	 * @return
+	 */
 	public Weather createNewWeather(String zip) {
 		Weather weather = new Weather(Integer.parseInt(zip));
 		this.weatherProviders = new ArrayList<WeatherProviderAdapter>();
