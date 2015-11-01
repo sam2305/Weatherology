@@ -9,7 +9,7 @@ public class WeatherService {
 	/** List of weather providers */
 	private ArrayList<WeatherProviderAdapter> weatherProviders;
 	
-	/** Constructor for weather service
+	/** Constructor for WeatherService
 	 */
 	public WeatherService() {}
 	

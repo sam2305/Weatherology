@@ -9,7 +9,7 @@ import static spark.Spark.get;
 import com.weatherology.helpers.JsonTransformer;
 import com.weatherology.services.weather.WeatherService;
 
-/** Exposes REST endpoints for weather service
+/** Exposes REST endpoints for weather services
  * @author Musa V. Ahmed
  */
 public class WeatherResource {

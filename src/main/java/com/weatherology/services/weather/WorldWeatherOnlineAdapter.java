@@ -1,39 +1,39 @@
 package com.weatherology.services.weather;
 
+/** Wrapper class for WorldWeatherOnline
+ * @author Musa V. Ahmed
+ */
 public class WorldWeatherOnlineAdapter extends WeatherProviderAdapter {
 
+	/**  */
 	private final static String name = "WorldWeatherOnline";
+	/**  */
 	private WorldWeatherOnline worldWeatherOnline;
 	
+	/** Constructor for WorldWeatherOnlineAdapter
+	 * @param worldWeatherOnline Instance of WorldWeatherOnline
+	 */
 	public WorldWeatherOnlineAdapter(WorldWeatherOnline worldWeatherOnline) {
 		this.worldWeatherOnline = worldWeatherOnline;
 	}
 	
+	@Override
 	public String getName() {
 		return WorldWeatherOnlineAdapter.name;
-	}
-	
-	public String getForecast() {
-		return this.worldWeatherOnline.forecast();
-	}
-	
-	public double getTemperature() {
-		return this.worldWeatherOnline.getTemperature();
-	}
-	
-	public double getHumidity() {
-		return this.worldWeatherOnline.getHumidity();
 	}
 
 	@Override
 	double getTemperatureFahrenheit() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.worldWeatherOnline.getTemperatureFahrenheit();
 	}
 
 	@Override
 	double getTemperatureCelsius() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.worldWeatherOnline.getTemperatureCelsius();
+	}
+
+	@Override
+	public double getHumidity() {
+		return this.worldWeatherOnline.getHumidity();
 	}
 }

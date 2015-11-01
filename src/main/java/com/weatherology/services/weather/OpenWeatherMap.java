@@ -34,7 +34,8 @@ public class OpenWeatherMap {
     /** Floating point value used to determine icon */
 	protected double icon;
 
-	/** Constructor for OpenWeatherMap pull forecast data from API and instantiates class
+	/** Constructor for OpenWeatherMap 
+	 * pulls forecast data from API and instantiates class
 	 * @param zip Five digit zip code
 	 */
 	public OpenWeatherMap(int zip) {
@@ -50,7 +51,9 @@ public class OpenWeatherMap {
 				                     .get("main").getAsJsonObject();
 
 		    this.temperature = jsonWeatherObject.get("temp").getAsDouble();
+
 		    this.humidity = jsonWeatherObject.get("humidity").getAsDouble();
+
 		    this.icon = jsonObject.get("list").getAsJsonArray()
 				                  .get(6).getAsJsonObject()
 				                  .get("weather").getAsJsonArray()
