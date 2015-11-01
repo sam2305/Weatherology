@@ -2,23 +2,20 @@ package com.weatherology.services.weather;
 
 import java.util.ArrayList;
 
-/** 
+/** Provides main functionality for weather forecasting
  * @author Musa V. Ahmed
  */
 public class WeatherService {
-	/**
-	 * 
-	 */
+	/** List of weather providers */
 	private ArrayList<WeatherProviderAdapter> weatherProviders;
 	
-	/**
-	 * 
+	/** Constructor for weather service
 	 */
 	public WeatherService() {}
 	
-	/**
-	 * @param zip
-	 * @return
+	/** Creates new Weather object, initializes list of weather providers.
+	 * @param zip Five digit zip code for weather forecast
+	 * @return Weather object
 	 */
 	public Weather createNewWeather(String zip) {
 		Weather weather = new Weather(Integer.parseInt(zip));
