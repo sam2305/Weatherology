@@ -1,0 +1,21 @@
+<div class="modal" ui-if='modal5' ui-state='modal5'>
+  <div class="modal-backdrop in"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <button class="close" 
+                ui-turn-off="modal5">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+      <i class="fa fa-question-circle feature-icon"></i><h4 class="modal-title">Would you like to logout?</h4>
+        </div>
+
+	  <div class="modal-footer" >
+        <button ui-turn-off="modal5" class="btn btn-primary">Cancel</button>
+      	<button ui-turn-off="modal5" class="btn btn-primary" ng-click='logout()'>Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

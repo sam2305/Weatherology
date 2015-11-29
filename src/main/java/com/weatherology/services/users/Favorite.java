@@ -1,9 +1,10 @@
 package com.weatherology.services.users;
 
+
 /** Favorite class contains all favorite information
  * @author Musa V. Ahmed
  */
-public class Favorite {
+public class Favorite{
 	/** Nickname for favorite */
 	protected String name;
 	/** Five digit zip code */

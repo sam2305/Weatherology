@@ -1,0 +1,86 @@
+body {
+  background: url("../img/back1.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  background-size: cover;
+  text-align:center;
+  margin:0px;
+}
+img.cover {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  margin: auto; 
+  /*min-width: 100%;
+  min-height: auto;*/
+  width:1000px;
+  height:1000px;
+  overflow-x: hidden;
+}
+
+img.logo {
+/*
+	width:300px;
+	height:300px;*/
+		max-width:21%;
+	height:auto;
+
+}
+
+#figcap
+{  	
+	font-family: "Trebuchet MS";
+	font-size:8vmin;
+	opacity:0.8;
+	color:white;
+	text-shadow:5px 5px 10px black;
+	text-align: center;
+}
+
+
+.cover{
+  background: url("../img/back1.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+.top {
+	/*padding-left:45%;*/
+	/*width:200px;*/
+	
+	opacity:0.8;
+	display:flex;
+	margin:auto;	
+}
+
+.middle{
+	opacity:0.8;
+	display:flex;
+	margin:auto;	
+}
+
+input
+{
+	height: 25px;	
+}
+
+ button{
+ 	height: 25px;
+ 	border-radius: 25px;
+    border: 2px; 	
+    font-family: "Sans-Serif";
+	font-size:20px;
+	color:white;
+	background: gray;
+ }
+
+.search{
+	padding-top:10%;
+	
+}
+
+.login{
+	padding-top:10%;
+	
+}

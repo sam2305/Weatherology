@@ -1,0 +1,35 @@
+<div class="modal" ui-if='modal6' ui-state='modal6'>
+  <div class="modal-backdrop in"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <button class="close" 
+                ui-turn-off="modal6">&times;</button>        
+        <h2 class="modal-title">
+        Modify Favorite
+        </h2>
+      </div>
+      
+      <div class="modal-body">
+      <form name="modifyForm">
+      <h3 class="home-heading"><i class="fa fa-sun-o text-primary"></i> Enter New Zip Code</h3> 
+		<input type="text" ng-model="zipFav" name="zip" ng-pattern="/^\d{5}$/" class="form-control" placeholder="e.g. 33199" required>
+		<div style="color:red" ng-messages="modifyForm.zip.$error"  ng-if="modifyForm.zip.$touched">
+  		<div ng-message="required">Zip Code is required</div>
+  		<div ng-message="pattern">Zip Code should contain 5 digits</div>
+  		</div>
+  		<br>
+		<h3 class="home-heading"><i class="fa fa-sun-o text-primary"></i> Enter Nickname</h3> 
+		<input type="text" ng-model="nickname" class="form-control" placeholder="e.g. Fav1">
+		<br>
+	</form>
+	  <div class="modal-footer" >
+        <button ui-turn-off="modal6" class="btn btn-primary">Cancel</button>
+      	<button ng-disabled="modifyForm.$invalid" ui-turn-off="modal6" class="btn btn-primary" ng-click="modify(zipFav,nickname)">Yes</button>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+</div>

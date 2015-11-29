@@ -1,0 +1,60 @@
+<div class="modal" ui-if='modal8' ui-state='modal8'>
+  <div class="modal-backdrop in"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+          <button class="close" 
+                ui-turn-off="modal8">&times;</button>   
+        <h2 class="modal-title">Sign Up</h2>
+      </div>
+      
+   <div class="modal-body">
+		<form role="form" name="userForm">
+			<fieldset>
+				<div class="form-group has-success has-feedback">
+					<label>Email</label> <br> <input type="email" ng-model="emailSign" name="email" class="form-control" placeholder="Email" required ng-pattern="/^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$/">		
+					<div style="color:red" ng-messages="userForm.email.$error"  ng-if="userForm.email.$touched">
+  					<div ng-message="required">Email is required</div>
+  					<div ng-message="pattern">Your email address is invalid</div>
+  					</div>		
+				</div>
+
+				<div class="form-group has-success has-feedback">
+					<label>Password</label> <br>
+					<input type="password" ng-model="passSign" name="pass" class="form-control" placeholder="Password" ng-minlength="6" required>
+					<div style="color:red" ng-messages="userForm.pass.$error"  ng-if="userForm.pass.$touched">
+  					<div ng-message="required">Password is required</div>
+  					<div ng-message="pattern">Must contain atleast one lowercase & uppercase alphabet, and one non-alpha character (a number or a symbol.)</div>
+  					<div ng-message="minlength">Password should contain minimum 6 characters</div>
+  					</div>	
+				</div>
+				
+				<div class="form-group has-success has-feedback">
+					<label>Re-enter password</label> <br>
+					<input type="password" ng-model="passConfirm" name="passConfirm" class="form-control" placeholder="Password Confirmation" ng-minlength="6" required compare-to="passSign">
+					<div style="color:red" ng-messages="userForm.passConfirm.$error"  ng-if="userForm.passConfirm.$touched">
+  					<div ng-message="compareTo">Password does not match</div>
+  					</div>	
+				</div>				
+				
+				<div class="form-group">
+					<label>Captcha:</label> 	<br>
+					  <no-captcha expired-callback="expiredCallback" 
+					  g-recaptcha-response="response" 
+					  theme='light'></no-captcha>
+					</div>
+			</fieldset>
+		</form>
+		</div>
+		<span style="color:red" ng-bind="err"></span>
+
+			  <div class="modal-footer" >
+      <a ui-turn-off="modal8"  class="btn btn-primary">Close</a>
+      	<button ng-disabled="userForm.$invalid" class="btn btn-primary" ng-click='signUp(emailSign,passSign,response,loginForm,oneDayForm)'>Create Account</button>
+      	</div>
+     
+      </div>
+    </div>
+  </div>
+</div>

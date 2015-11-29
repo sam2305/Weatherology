@@ -1,0 +1,53 @@
+<div class="modal" ui-if='modal1' ui-state='modal1'>
+<div class="scrollable">
+	<div class="scrollable-content">
+  <div class="modal-backdrop in"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <button class="close" 
+                ui-turn-off="modal1">&times;</button>
+        <h3 class="modal-title"><i class="fa fa-eye"></i> Weather Forecast</h3>
+      </div>
+
+	<div class="modal-body">
+	 <div style="top:70px;width:900px;margin:auto;" class="section" >   
+				      <div style="width:250px;float:left;margin:10px;" class="panel panel-default" ng-repeat="x in forecasts">
+				        <div class="panel-heading">
+				          <h3 class="panel-title"> {{x.name}}</h3>
+				        </div>
+				        <div class="panel-body">     
+				          <table >
+				          <tr>
+						    <td><h4>Zip Code:</h4></td>
+						    <td><h4> {{zip}}</h4></td>
+						  </tr>
+						  <tr>
+						    <td><h4>Temperature:</h4></td>
+						    <td><h4><i class="fa fa-globe"></i>
+				          		 {{x.temperature | number:0 }}{{" "+unit}}{{"&#176"}}</h4></td>
+						  </tr>
+						  <tr>
+						    <td><h4>Humidity:</h4></td>
+						    <td><h4><i class="fa fa-tint"></i>
+				           		 {{x.humidity + "  &#37;"}}</h4></td>
+						  </tr>	
+						</table>
+				
+				        </div>
+				      </div>
+						</div>
+						<a ng-hide="disableMenu" href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
+<i class="fa fa-facebook-square"></i>  Share on Facebook
+</a>
+						</div>
+						
+	  <div class="modal-footer" >
+        <button ui-turn-off="modal1" class="btn btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

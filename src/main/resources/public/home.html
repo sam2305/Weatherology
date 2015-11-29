@@ -1,0 +1,110 @@
+<div class="scrollable">
+	<div class="scrollable-content">
+	
+		<div class="list-group ">
+
+			<div class="list-group-item list-group-item-home" >
+				<div >
+				
+					<form role="form" name="oneDayForm">
+						<fieldset>
+							<div class="form-group has-success has-feedback">
+								<h3 class="home-heading"><i class="fa fa-sun-o text-primary"></i> Enter Zip Code</h3>
+								<input type="text" ng-model="oneDay.zip" name="zip" class="form-control" placeholder="e.g. 33199" required ng-pattern="/^\d{5}$/">
+								<div style="color:red" ng-messages="oneDayForm.zip.$error"  ng-if="oneDayForm.zip.$touched">
+  								<div ng-message="required">Zip Code is required</div>
+  								<div ng-message="pattern">Zip Code should contain 5 digits</div>
+							</div>
+						</fieldset>
+						<br>
+													<button type="reset" ng-disabled="oneDayForm.$invalid" href="" ng-click="oneDayForecast(oneDay.zip,oneDayForm,loginForm)" ui-turn-on="modal1" class="btn btn-primary">Go</button>
+					</form>
+					
+				</div>
+			</div>
+			
+
+			<div ng-hide="hideLogin" class="list-group-item list-group-item-home">
+				<form role="form" name="loginForm" novalidate>
+					<fieldset>
+					<h3 class="home-heading"><i class="fa fa-sign-in text-primary">  </i> Login</h3>
+						<div class="form-group has-success has-feedback">
+							<label>Email</label><input type="email" ng-model="log.email" name="email" class="form-control" placeholder="Email" ng-pattern="/^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$/" required>
+							<div style="color:red" ng-messages="loginForm.email.$error"  ng-if="loginForm.email.$touched">
+  							<div ng-message="required">Email is required</div>
+  							<div ng-message="pattern">Your email address is invalid</div>
+  							</div>
+						</div>
+
+						<div class="form-group has-success has-feedback">
+							<label>Password</label> <input type="password" class="form-control" placeholder="Password" ng-model="log.pass" name="pass" required>
+							<div style="color:red" ng-messages="loginForm.pass.$error"  ng-if="loginForm.pass.$touched">
+  							<div ng-message="required">Password is required</div>
+  							<div ng-message="minlength">Password should be more than 6 characters</div>
+  							</div>
+  							<span style="color:red" ng-bind="err1"></span>
+						</div>
+					</fieldset>
+					<div>
+						<button ng-disabled="loginForm.$invalid" ng-click=login(log.email,log.pass,loginForm,oneDayForm) class="btn btn-primary">Login</button>
+						<button ng-click=set(loginForm,oneDayForm) ui-turn-on="modal8" class="btn btn-primary">Sign Up</button>
+					</div>
+					
+					<!-- <div ui-content-for="modals">
+  						<div ng-include="'modal1.html'"></div>	
+  						<div ng-include="'modal3.html'"></div>	
+  					</div> -->
+  										
+				</form>
+
+			</div>
+
+			<div ng-hide="disableMenu" class="list-group-item list-group-item-home-fav">
+					<h3 class="home-heading">
+					<i class="fa fa-star text-primary"> </i>
+					Favorite Locations
+					</h3>
+					<div class="section">
+				      <div class="panel panel-default" ng-repeat="favLoc in favoriteLocs">
+				        <div class="panel-heading">
+				          <div class="btn-group pull-right">
+				           <a ng-click="getIndex($index)" ui-turn-on="modal6"><i style="color:gray" class="fa fa-cog fa-fw"></i></a>
+				           <a ng-click="getIndex($index)" ui-turn-on="modal7"><i style="color:gray" class="fa fa-times"></i></a></li>
+				           </div>
+				          <h3 class="panel-title"> {{"Favorite " + ($index+1) +" "+favLoc.nickname}}</h3>
+				        </div>
+				        <div class="panel-body">     
+				          <table >
+				          <tr>
+						    <td><h4>{{"Zipcode:"}}</h4></td>
+						    <td><h4> {{favLoc.zip}}</h4></td>
+						  </tr>
+						  <tr>
+						    <td><h4>City:</h4></td>
+						    <td><h4>{{favLoc.name}}</h4></td>
+						  </tr>
+						  <tr>
+						    <td><h4>Temperature:</h4></td>
+						    <td><h4><i class="fa fa-globe"></i>
+				          		 {{favLoc.temp|number:0}}{{" "+unit}}{{"&#176"}}</h4></td>
+						  </tr>
+						  <tr>
+						    <td><h4>Humidity:</h4></td>
+						    <td><h4><i class="fa fa-tint"></i>
+				           		 {{favLoc.humid + "  &#37;"}}</h4></td>
+						  </tr>	
+						</table>
+				
+				        </div>
+				      </div>
+				     
+				        <a href="" ui-turn-on="modal2" class="btn btn-default" ><img class="plus" src="../img/plus.svg"></a>
+				   				  
+				    </div>
+				    </div>
+				    </div>	
+				
+		</div>
+
+	</div>
+</div>
