@@ -24,9 +24,10 @@ public class WeatherService {
 		//first
 		this.weatherProviders.add(new OpenWeatherMapAdapter(new OpenWeatherMap(weather.getZip())));
 		//second
-		this.weatherProviders.add(new OpenWeatherMapAdapter(new OpenWeatherMap(weather.getZip())));
-		//third
-		this.weatherProviders.add(new OpenWeatherMapAdapter(new OpenWeatherMap(weather.getZip())));
+		//this.weatherProviders.add(new OpenWeatherMapAdapter(new OpenWeatherMap(weather.getZip())));
+		this.weatherProviders.add(new WeatherUndergroundAdapter(new WeatherUnderground(weather.getZip())));
+		//this.weatherProviders.add(new OpenWeatherMapAdapter(new OpenWeatherMap(weather.getZip())));
+		this.weatherProviders.add(new WorldWeatherOnlineAdapter(new WorldWeatherOnline(weather.getZip())));
 		
 		for(WeatherProviderAdapter provider: this.weatherProviders) {
 			String name = provider.getName();

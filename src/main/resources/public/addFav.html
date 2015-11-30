@@ -4,7 +4,7 @@
     <div class="modal-content">
       
       <div class="modal-header">
-        <button class="close" 
+        <button ng-click='close()' class="close" 
                 ui-turn-off="modal2">&times;</button>   
       <h2 class="modal-title">Add Favorites</h2>     
       </div>
@@ -25,12 +25,14 @@
   		</div>
 		<br>
 		</form>
+							<span style="color:red" ng-bind="err3"></span>
+		
 		</div>
 		
 	  <div class="modal-footer" >
-        <button ui-turn-off="modal2" class="btn btn-primary">Cancel</button>
-      	<button ng-disabled="addForm.$invalid" ui-turn-off="modal2" class="btn btn-primary" ng-click='addFav(zipFav, nickname)'>Yes</button>
+        <button ui-turn-off="modal2" ng-click='close()' class="btn btn-primary">Cancel</button>
+      	<button ng-disabled="addForm.$invalid" class="btn btn-primary" ng-click='addFav(zipFav, nickname)''>Yes</button>
       </div>
-      </div>
+     </div>
     </div>
   </div>

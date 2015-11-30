@@ -29,7 +29,9 @@ app.run(function($transform) {
 // in order to avoid unwanted routing.
 // 
 app.config(['$routeProvider','noCAPTCHAProvider',function($routeProvider,noCaptchaProvider) {
-  $routeProvider.when('/',              {templateUrl: 'home.html', reloadOnSearch:false});
+  $routeProvider.when('/',              {templateUrl: 'home.html', reloadOnSearch:false})
+  $routeProvider.when('/trial',              {templateUrl: 'trial.html', reloadOnSearch:false})
+  .otherwise({redirectTo:'#/'});
   noCaptchaProvider.setSiteKey(SITE_KEY);
   noCaptchaProvider.setTheme('dark');
 }]);
@@ -38,7 +40,7 @@ app.config(['$routeProvider','noCAPTCHAProvider',function($routeProvider,noCaptc
 // For this trivial demo we have just a unique MainController 
 // for everything
 //
-app.controller('UserController',function($rootScope, $scope, SharedState, $sanitize, $http){
+app.controller('UserController',function($rootScope, $scope, SharedState, $sanitize, $http, $location){
 
   $scope.swiped = function(direction) {
     alert('Swiped ' + direction);
@@ -80,9 +82,15 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
   $scope.zipFav='';
   $scope.log={};
   $scope.oneDay={};
-  $scope.flag=true;
+  $scope.err='';
+  $scope.err1='';
+  $scope.err2='';
+  $scope.err3='';
+  $scope.err4='';
+  $scope.err5='';
+  SharedState.initialize($scope, 'button1');
+  SharedState.initialize($scope, 'button2');
   
-	  
   $scope.$watch('gRecaptchaResponse', function (){
     $scope.expired = false;
   });
@@ -93,6 +101,13 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
   };
 
 
+  $scope.reset=function(form,form1){
+		form.$setUntouched();
+		form.$setPristine();
+		form1.$setUntouched();
+		form1.$setPristine();
+  };
+  
   $scope.logout = function(form) {
 	    $scope.zipCode = '';
 	    $scope.user=[];
@@ -101,8 +116,6 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 	    $scope.email='';
 	    $scope.mindex='';
 	    $scope.favorites=[];
-	    $scope.err='';
-	    $scope.err1='';
 	    $scope.forecasts = [];
 	    $scope.zip='';	  	  
 	    $scope.favoriteLocs = [];
@@ -112,10 +125,13 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 	    //alert('You clicked on logout');
 	    $scope.unit='F';
 	    $scope.oneDay.zip='';
-	    $scope.form1.$setUntouched();
-		$scope.form1.$setPristine();
+	    $scope.err='';
+	    $scope.err1='';
+	    $scope.err2='';
+	    $scope.err3='';
+	    $scope.err4='';
+	    $scope.reset($scope.form,$scope.form1);
 	    
-		
   };
   
   $scope.fav=[];
@@ -124,19 +140,21 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
   
   $scope.login = function(value,value1,form,form1) {
 	  
+	  $scope.favoriteLocs = [];
 	  $scope.oneDay.zip='';
+	  $scope.close();
 	  $scope.log={};	
 	  $scope.flag=false;
 	  $scope.form1=form1;
-	  form.$setUntouched();
-	  form.$setPristine();
-	 
+	  $scope.form=form;
+	  
+	  $scope.reset(form,form1);
+	  
 	  $scope.user={
 			  	email:value,
 			  	pass:value1
 		 		};
 	  
-	  $scope.email=angular.copy(value);
 	  
 	 return $http.post("http://localhost:8080/api/v1/login",$scope.user)
 		   .success(function (data, status, headers, config){
@@ -144,6 +162,7 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 		    	  $scope.err1="Invalid username/password";
 		      else
 		      		{
+		    	  		$scope.email=data.email;
 		    	  		//alert('You submitted the login form');
 		    	  		$rootScope.hideLogin = true;
 		    	  		$rootScope.disableMenu = false;
@@ -151,12 +170,15 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 		    	  		if(data.farenheit==true)
 		    	  			{
 		    	  			SharedState.turnOn('button2');
+		    	  			SharedState.turnOff('button1');
 		    	  			$scope.tempUnit="true";
 		    	  			}
 		    	  		else
 		    	  			{
 		    	  			SharedState.turnOn('button1');
+		    	  			SharedState.turnOff('button2');
 		    	  			$scope.tempUnit="false";
+		    	  			$scope.unit="C";
 		    	  			}
 		    
 		    	  		if(data.favorites==null)
@@ -170,7 +192,7 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 		      		}	
 		   	})
 		   	.error(function (data, status, headers, config){alert("Error Logging In")});
-	  
+	  	
 		};
 
 	
@@ -203,6 +225,7 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 									nickname: $scope.val
 								});
 							}
+					
 					$scope.loadFav();
 					})
 					.error(function (response){alert("Error Loading Favorites")});
@@ -215,121 +238,164 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 			//alert('You called the oneDayForecast() function');
 			$scope.zipCode =zip;
 			$scope.oneDay={};	
-			form.$setUntouched();
-			form.$setPristine();
-			form1.$setUntouched();
-			form1.$setPristine();
+			$scope.close();
+		    
+			$scope.reset(form,form1);
+			
 			$http.get("http://localhost:8080/api/v1/weather/" + $scope.zipCode)
 				.success(function (response) {
 										
 										$scope.zip = response.zip;
 	    								$scope.forecasts = response.forecasts;
-	    								if($scope.tempUnit=="false")
+	    								if($scope.forecasts[0].temperature=="-459.67")
+	    								{
+	    									SharedState.turnOff("modal1");
+	    									$scope.err2="Invalid Zip Code";
+	    								}
+	    								else if($scope.tempUnit=="false")
 	    			    	  			{
+	    									$scope.unit="C";
 	    									angular.forEach($scope.forecasts,function(value,key){
 	    										value.temperature=((value.temperature-32)*5)/9;
 	    									});
 	    			    	  			
 	    			    	  			}
+	    								
 	    						
 				});
 		};
 		
   
 	$scope.addFav = function(value, value1) {
-			if($scope.favoriteLocs.length<3){
-				
-				$scope.favorites.push({name:value1,zip:value});
-  				
-				
-				$scope.user={
-							email:$scope.email,
-							tempUnit:$scope.tempUnit,
-							favorites:$scope.favorites
-							}
 
-
-				$http.put("http://localhost:8080/api/v1/users",$scope.user)
-					.success(function (data, status, headers, config){
-						if(data.email=="exists")
-							alert("Error");
-					})
-					.error(function (data, status, headers, config){alert("Error Updating Database")});
-				
+		$scope.close();
+			
+			
+			if($scope.favorites.length < 3) {
+								
 				$http.get("http://localhost:8080/api/v1/weather/" + value)
 					.success(function (response) {	
-	    								
-						if($scope.tempUnit=="false")
-	    	  			{
-							$scope.favoriteLocs.push({
-								zip: response.zip,
-								name: response.forecasts[0].name,
-								temp: ((response.forecasts[0].temperature-32)*5)/9,
-								humid: response.forecasts[0].humidity,
-								nickname: value1
-							});
-	    	  			}
+	    					
+						if(response.forecasts[0].temperature=="-459.67")
+							$scope.err3="Invalid Zip Code";
+						
 						else
 							{
-								$scope.favoriteLocs.push({
-									zip: response.zip,
-									name: response.forecasts[0].name,
-									temp: response.forecasts[0].temperature,
-									humid: response.forecasts[0].humidity,
-									nickname: value1
-								});
+							
+								if($scope.tempUnit=="false")
+									{
+										$scope.favoriteLocs.push({
+												zip: response.zip,
+												name: response.forecasts[0].name,
+												temp: ((response.forecasts[0].temperature-32)*5)/9,
+												humid: response.forecasts[0].humidity,
+												nickname: value1
+												});
+										$scope.unit="C";
+										SharedState.turnOff("modal2");
+									}
+								else
+									{
+										$scope.favoriteLocs.push({
+												zip: response.zip,
+												name: response.forecasts[0].name,
+												temp: response.forecasts[0].temperature,
+												humid: response.forecasts[0].humidity,
+												nickname: value1
+												});
+										SharedState.turnOff("modal2");
+									}
+								
+								$scope.favorites.push({name:value1,zip:value});
+				  				
+								
+								$scope.user={
+											email:$scope.email,
+											tempUnit:$scope.tempUnit,
+											favorites:$scope.favorites
+											}
+
+
+								$http.put("http://localhost:8080/api/v1/users",$scope.user)
+									.success(function (data, status, headers, config){
+										if(data.email=="exists")
+											alert("Error");
+									})
+									.error(function (data, status, headers, config){alert("Error Updating Database")});
+
 							}
-					    	  		
+							  		
 					})
 					.error(function (response) {alert("Error Adding Favorites")});
 			}
+				
 			else
-				alert("Cannot add more");
+				$scope.err3="Cannot add more";
 		};
   
 		
+	$scope.close=function(){
+		$scope.err1='';
+		$scope.err='';
+		$scope.err3='';
+		$scope.err4='';
+		$scope.err2='';
+		 $scope.err5='';
+	}
 		
 	$scope.modify = function(value,value1) {
-		
-		    	$scope.favoriteLocs[$scope.mindex].zip= value;
-		    	if(value1!=null)		    		
-		    	$scope.favoriteLocs[$scope.mindex].nickname= value1;
+		$scope.close();
 		    
 		    	$http.get("http://localhost:8080/api/v1/weather/" + value)
 		    		.success(function (response) {
-		    			if($scope.tempUnit=="false")
-			  				$scope.favoriteLocs[$scope.mindex].temp= ((response.forecasts[0].temperature-32)*5)/9;
-		    			else
-		    				$scope.favoriteLocs[$scope.mindex].temp= response.forecasts[0].temperature;
+		    			if(response.forecasts[0].temperature=="-459.67")
+							$scope.err4="Invalid Zip Code";
+		    			else 
+		    				{
+		    				
+		    				$scope.favoriteLocs[$scope.mindex].zip= value;
+		    		    	if(value1!=null)		    		
+		    		    	$scope.favoriteLocs[$scope.mindex].nickname= value1;
+		    		    	
+		    				if($scope.tempUnit=="false")
+		    					{
+		    					$scope.favoriteLocs[$scope.mindex].temp= ((response.forecasts[0].temperature-32)*5)/9;
+		    					$scope.unit="C";
+		    					}
+		    				else
+		    					$scope.favoriteLocs[$scope.mindex].temp= response.forecasts[0].temperature;
 		    			
-		    			$scope.favoriteLocs[$scope.mindex].name= response.forecasts[0].name;
-		    			$scope.favoriteLocs[$scope.mindex].humid= response.forecasts[0].humidity;
+		    				$scope.favoriteLocs[$scope.mindex].name= response.forecasts[0].name;
+		    				$scope.favoriteLocs[$scope.mindex].humid= response.forecasts[0].humidity;
+							SharedState.turnOff("modal6");
+		    				
+							$scope.favorites[$scope.mindex].zip=value;
+					    	if(value1!=null)
+					    	$scope.favorites[$scope.mindex].name= value1;
+					    
+					    	$scope.user={
+					    			email:$scope.email,
+					    			tempUnit:$scope.tempUnit,
+					    			favorites:$scope.favorites
+					    				}
+						    										
+					    	$http.put("http://localhost:8080/api/v1/users",$scope.user)
+						    	.success(function (data, status, headers, config){
+						    		
+						    			if(data.email=="exists")
+						    				alert("Error");
+						    								
+						    		})
+						    		.error(function (data, status, headers, config){alert("Error Updating Database")});
+		    				}
 		    			})
 		    			.error(function (response) {alert("Error Modifying Favorites")});
-    	  		
-		    	$scope.favorites[$scope.mindex].zip=value;
-		    	if(value1!=null)
-		    	$scope.favorites[$scope.mindex].name= value1;
-		    
-		    	$scope.user={
-		    			email:$scope.email,
-		    			tempUnit:$scope.tempUnit,
-		    			favorites:$scope.favorites
-		    				}
-			    										
-		    	$http.put("http://localhost:8080/api/v1/users",$scope.user)
-			    	.success(function (data, status, headers, config){
-			    		
-			    			if(data.email=="exists")
-			    				alert("Error");
-			    								
-			    		})
-			    		.error(function (data, status, headers, config){alert("Error Updating Database")});
 		    
   		};
 		  
   			
   	$scope.deleteFav = function() {
+  		$scope.close();
   					
   					$scope.favoriteLocs.splice($scope.mindex,1);
   					$scope.favorites.splice($scope.mindex,1);
@@ -351,6 +417,8 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 			  
 	$scope.toggleF=function()
 			 {
+		 		$scope.close();
+	  			SharedState.turnOff('button1');
 				if($scope.tempUnit=="false"){	
 					angular.forEach($scope.favoriteLocs,function(value,key){
 						value.temp= ((value.temp*9)/5)+32;
@@ -392,6 +460,8 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
   
 	$scope.toggleC=function()
 		{
+		 	$scope.close();
+  			SharedState.turnOff('button2');
 			if($scope.tempUnit=="true"){
 				angular.forEach($scope.favoriteLocs,function(value,key){
 					value.temp= ((value.temp-32)*5)/9;
@@ -438,6 +508,8 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 		$scope.form1=form1;
 		$scope.form=form;
 	};
+	
+	
 			  
 	$scope.signUp = function(value,value1,response,form,form1){
 		  	
@@ -475,7 +547,9 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 		 
 		 $http.delete("http://localhost:8080/api/v1/users/" + $scope.email)
 		 	.success(function (data, status, headers, config){
-		 		$scope.logout();		
+		 		$scope.logout();	
+		 		 $scope.err5="This account has been deleted";
+		 		
 		 		})
 		 	.error(function (data, status, headers, config){
 		 		alert("Some error has occured while deleting account... Please try again later");

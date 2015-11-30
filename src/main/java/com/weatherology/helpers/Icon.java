@@ -1,5 +1,5 @@
 /** Icons for displaying weather condition
- * @author Musa V. Ahmed
+ *  @author Musa V. Ahmed
  */
 
 package com.weatherology.helpers;

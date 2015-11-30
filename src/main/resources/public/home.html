@@ -10,7 +10,7 @@
 						<fieldset>
 							<div class="form-group has-success has-feedback">
 								<h3 class="home-heading"><i class="fa fa-sun-o text-primary"></i> Enter Zip Code</h3>
-								<input type="text" ng-model="oneDay.zip" name="zip" class="form-control" placeholder="e.g. 33199" required ng-pattern="/^\d{5}$/">
+								<input type="text" ng-model="oneDay.zip" name="zip" id="zip" class="form-control" placeholder="e.g. 33199" required ng-pattern="/^\d{5}$/">
 								<div style="color:red" ng-messages="oneDayForm.zip.$error"  ng-if="oneDayForm.zip.$touched">
   								<div ng-message="required">Zip Code is required</div>
   								<div ng-message="pattern">Zip Code should contain 5 digits</div>
@@ -19,7 +19,7 @@
 						<br>
 													<button type="reset" ng-disabled="oneDayForm.$invalid" href="" ng-click="oneDayForecast(oneDay.zip,oneDayForm,loginForm)" ui-turn-on="modal1" class="btn btn-primary">Go</button>
 					</form>
-					
+					<span id="err2" style="color:red" ng-bind="err2"></span>
 				</div>
 			</div>
 			
@@ -42,12 +42,13 @@
   							<div ng-message="required">Password is required</div>
   							<div ng-message="minlength">Password should be more than 6 characters</div>
   							</div>
-  							<span style="color:red" ng-bind="err1"></span>
+  							<span id="err1" style="color:red" ng-bind="err1"></span>
+  							<span id="err5" style="color:red" ng-bind="err5"></span>
 						</div>
 					</fieldset>
 					<div>
 						<button ng-disabled="loginForm.$invalid" ng-click=login(log.email,log.pass,loginForm,oneDayForm) class="btn btn-primary">Login</button>
-						<button ng-click=set(loginForm,oneDayForm) ui-turn-on="modal8" class="btn btn-primary">Sign Up</button>
+						<button ng-click="set(loginForm,oneDayForm);close(); reset(loginForm,oneDayForm)" ui-turn-on="modal8" class="btn btn-primary">Sign Up</button>
 					</div>
 					
 					<!-- <div ui-content-for="modals">

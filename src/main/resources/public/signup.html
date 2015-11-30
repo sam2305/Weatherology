@@ -1,4 +1,6 @@
 <div class="modal" ui-if='modal8' ui-state='modal8'>
+<div class="scrollable">
+	<div class="scrollable-content">
   <div class="modal-backdrop in"></div>
   <div class="modal-dialog">
     <div class="modal-content">
@@ -50,11 +52,13 @@
 		<span style="color:red" ng-bind="err"></span>
 
 			  <div class="modal-footer" >
-      <a ui-turn-off="modal8"  class="btn btn-primary">Close</a>
+      <a ui-turn-off="modal8" ng-click='close()' class="btn btn-primary">Close</a>
       	<button ng-disabled="userForm.$invalid" class="btn btn-primary" ng-click='signUp(emailSign,passSign,response,loginForm,oneDayForm)'>Create Account</button>
       	</div>
      
       </div>
     </div>
+  </div>
+  </div>
   </div>
 </div>

@@ -4,7 +4,7 @@
     <div class="modal-content">
       
       <div class="modal-header">
-        <button class="close" 
+        <button ng-click='close()' class="close" 
                 ui-turn-off="modal6">&times;</button>        
         <h2 class="modal-title">
         Modify Favorite
@@ -24,9 +24,11 @@
 		<input type="text" ng-model="nickname" class="form-control" placeholder="e.g. Fav1">
 		<br>
 	</form>
+		<span style="color:red" ng-bind="err4"></span>
+		
 	  <div class="modal-footer" >
-        <button ui-turn-off="modal6" class="btn btn-primary">Cancel</button>
-      	<button ng-disabled="modifyForm.$invalid" ui-turn-off="modal6" class="btn btn-primary" ng-click="modify(zipFav,nickname)">Yes</button>
+        <button ui-turn-off="modal6" ng-click='close()' class="btn btn-primary">Cancel</button>
+      	<button ng-disabled="modifyForm.$invalid" class="btn btn-primary" ng-click="modify(zipFav,nickname)">Yes</button>
       </div>
       
       </div>
