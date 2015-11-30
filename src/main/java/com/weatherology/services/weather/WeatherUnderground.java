@@ -40,7 +40,7 @@ public class WeatherUnderground {
 			JsonObject jsonObject = new JsonParser().parse(this.readUrl(urlString)).getAsJsonObject();
 			
 			this.temperature = jsonObject.get("current_observation").getAsJsonObject()
-					                     .get("temp_c").getAsDouble() + 273.15;
+					                     .get("temp_f").getAsDouble();// + 273.15;
 			String stringHumidity = jsonObject.get("current_observation").getAsJsonObject()
 					                          .get("relative_humidity").getAsString();
 			this.humidity = Double.parseDouble(stringHumidity.substring(0, stringHumidity.length()-1));
@@ -54,7 +54,8 @@ public class WeatherUnderground {
 	 * @return temperature in fahrenheit
 	 */
 	public double getTemperatureFahrenheit() {
-		return (this.temperature * (9/5) - 459.67);
+		//return (this.temperature * (9/5) - 459.67);
+		return this.temperature;
 	}
 	
 	/** Return temperature in celsius
