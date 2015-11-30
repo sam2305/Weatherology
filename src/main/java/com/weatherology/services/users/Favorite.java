@@ -46,4 +46,16 @@ public class Favorite{
 	public void setZip(int zip) {
 		this.zip = zip;
 	}
+	
+	public boolean equals(Object obj) {
+		if (! (obj instanceof Favorite))
+			return false;
+		
+		Favorite favorite = (Favorite) obj;
+		if (this.name.equals(favorite.name) &&
+			this.zip == favorite.zip)
+			return true;
+		
+		return false;
+	}
 }
