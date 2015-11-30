@@ -52,8 +52,8 @@ public class Favorite{
 			return false;
 		
 		Favorite favorite = (Favorite) obj;
-		if (this.name.equals(favorite.name) &&
-			this.zip == favorite.zip)
+		if (this.getName().equals(favorite.name) &&
+			this.getZip() == favorite.zip)
 			return true;
 		
 		return false;

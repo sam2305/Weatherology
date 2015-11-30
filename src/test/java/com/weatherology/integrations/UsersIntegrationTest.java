@@ -3,6 +3,7 @@ package com.weatherology.integrations;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Before;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.weatherology.services.users.Favorite;
 import com.weatherology.services.users.User;
 import com.weatherology.services.users.UserService;
 
@@ -67,6 +69,9 @@ public class UsersIntegrationTest {
 		this.testJson = "{\"email\":\"jorge@gmail.com\",\"password\":\"12345\",\"createdOn\":\"Nov 30, 2015 1:52:17 PM\",\"farenheit\":true, \"favorites\":[]}";
 
 		assertNotNull(this.userService.find(this.testJson));
+		
+		this.testJson = "{\"email\":\"jorge@gmail.com\",\"password\":\"12345\",\"createdOn\":\"Nov 30, 2015 1:52:17 PM\",\"farenheit\":false, \"favorites\":[]}";
+		user = this.userService.update(this.testJson);
 	}
 
 	@Test
@@ -90,9 +95,83 @@ public class UsersIntegrationTest {
 		user = this.userService.find(this.testJson);
 		assertNotNull(user);
 		
+
+		
+		
 		when(this.collection.remove(this.findObject)).thenReturn(null);
 		
 		user = this.userService.deleteUser("jorge@gmail.com");
 		assertNotNull(user);
+	}
+	
+	@Test
+	public void testUserAndFavorite1() {
+		User user = new User();
+		user.setEmail("mahme012@fiu.edu");
+		user.setPassword("12345");
+		user.setFarenheit(true);
+		user.setCreatedOn(new Date());
+		
+		ArrayList<Favorite> favorites = new ArrayList<Favorite>();
+		favorites.add(new Favorite("MyFav", 12345));
+		
+		user.setFavorites(favorites);
+		
+		String expectedEmail = "mahme012@fiu.edu";
+		String actualEmail = user.getEmail();
+		assertEquals(expectedEmail, actualEmail);
+		
+		String expectedPassword = "12345";
+		String actualPassword = user.getPassword();
+		assertEquals(expectedPassword, actualPassword);
+		
+		Boolean expectedFarenheit = true;
+		Boolean actualFarenheit = user.getFarenheit();
+		assertEquals(expectedFarenheit, actualFarenheit);
+		
+		Favorite expectedFavorite = new Favorite("MyFav", 12345);
+		favorites = user.getFavorites();
+		Favorite actualFavorite = favorites.get(0);
+		assertEquals(expectedFavorite, actualFavorite);
+	}
+	
+	@Test
+	public void testUserAndFavorite2() {
+		User user = new User();
+		user.setEmail("mahme012@fiu.edu");
+		user.setPassword("12345");
+		user.setFarenheit(true);
+		user.setCreatedOn(new Date());
+		
+		ArrayList<Favorite> favorites = new ArrayList<Favorite>();
+		favorites.add(new Favorite("MyFav", 12345));
+		
+		user.setFavorites(favorites);
+		
+		String expectedEmail = "mahme012@fiu.edu";
+		String actualEmail = user.getEmail();
+		assertEquals(expectedEmail, actualEmail);
+		
+		String expectedPassword = "12345";
+		String actualPassword = user.getPassword();
+		assertEquals(expectedPassword, actualPassword);
+		
+		Boolean expectedFarenheit = true;
+		Boolean actualFarenheit = user.getFarenheit();
+		assertEquals(expectedFarenheit, actualFarenheit);
+		
+		Favorite expectedFavorite = new Favorite("MyFav", 12345);
+		favorites = user.getFavorites();
+		Favorite actualFavorite = favorites.get(0);
+		actualFavorite.setName("MyFar");
+		assertNotEquals(expectedFavorite, actualFavorite);
+		
+		expectedFavorite = new Favorite("MyFav", 12345);
+		actualFavorite.setName("MyFav");
+		actualFavorite.setZip(1234);
+		assertNotEquals(expectedFavorite, actualFavorite);
+		
+		Object notFavorite = new Object();
+		assertNotEquals(expectedFavorite, notFavorite);
 	}
 }
