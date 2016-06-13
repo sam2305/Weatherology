@@ -2,8 +2,9 @@ package com.weatherology.services.users;
 
 //import com.google.gson.Gson;
 import com.mongodb.*;
-
+import com.gargoylesoftware.htmlunit.javascript.host.Console;
 import com.google.gson.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,6 +23,26 @@ public class UserService {
 	public UserService(DB db) {
 		this.db = db;
 		this.collection = db.getCollection("users");
+		
+		User testUser = new User();
+		testUser.setCreatedOn(new Date());
+		testUser.setEmail("sam_vincent@gmail.com");
+		testUser.setFarenheit(true);
+		testUser.setPassword("codere");
+		
+		String userJSON = new Gson().toJson(testUser);
+		
+		this.createNewUser(userJSON);
+		
+		testUser = new User();
+		testUser.setCreatedOn(new Date());
+		testUser.setEmail("alex_he@yahoo.com");
+		testUser.setFarenheit(true);
+		testUser.setPassword("mongodb");
+		
+		userJSON = new Gson().toJson(testUser);
+		
+		this.createNewUser(userJSON);
 	}
 	
 	/** Creates a new user object and stores it
@@ -67,8 +88,10 @@ public class UserService {
 		if(user != null) {
 			String userBody[] = body.split(",");
 			String password = userBody[1].split(":")[1].replace("\"", "").replace("}", "");
+			
 
 			String passDB = user.getPassword();
+			System.out.println(passDB);
 			if(passDB.equals(password)) {
 				return user;
 			}

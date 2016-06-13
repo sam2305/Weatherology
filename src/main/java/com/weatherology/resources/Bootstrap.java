@@ -1,5 +1,8 @@
 package com.weatherology.resources;
 
+import java.util.Date;
+
+import com.google.gson.Gson;
 import com.mongodb.*;
 
 import static spark.Spark.setIpAddress;
@@ -7,6 +10,7 @@ import static spark.Spark.setPort;
 import static spark.SparkBase.staticFileLocation;
 
 import com.weatherology.services.ServiceFacade;
+import com.weatherology.services.users.User;
 
 /** Main class starts Jetty Server and starts resources
  * @author Musa V. Ahmed

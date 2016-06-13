@@ -158,7 +158,7 @@ app.controller('UserController',function($rootScope, $scope, SharedState, $sanit
 	  
 	 return $http.post("http://localhost:8080/api/v1/login",$scope.user)
 		   .success(function (data, status, headers, config){
-		      if(data.email=="exists")
+		      if(data.email == "exists")
 		    	  $scope.err1="Invalid username/password";
 		      else
 		      		{
